@@ -134,7 +134,7 @@ if __name__ == "__main__":
             chrome = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
             webbrowser.get(chrome).open(hx)
 
-        elif 'github' in query:
+        elif 'open github' in query:
             wx = "github.com"
             chrome = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
             webbrowser.get(chrome).open(wx)
