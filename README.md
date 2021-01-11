@@ -3,7 +3,7 @@
 Friday is a Ai assistant who takes command with your voice. As a matter of fact i have created this Pgm for the marvel iron-man fans, it does 10 to 13 command features which is controlled by your voice(cool huh?).for the most crazy part you can control your pc with your voice and make your personal desktop assistant do the job. it is not the best compared to alexa,cortana etc. but it is your self made assistant so be proud. 
 
 # Requirements
-pyttsx3 - 'pip install pyttsx3' in your command prompt
+pyttsx3 
 
 speechRecognition
 
