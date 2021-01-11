@@ -1,1 +1,22 @@
+pyttsx3 
+
+speechRecognition
+
+playsound
+
+wikipedia
+
+webbrowser
+
+weathercom
+
+json
+
+SMTP
+
+pyjokes
+
+pyautogui
+
+GoogleNews
 
