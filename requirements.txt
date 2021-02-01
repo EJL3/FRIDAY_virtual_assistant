@@ -20,3 +20,7 @@ pyautogui
 
 GoogleNews
 
+PyPDF2
+
+pywhatkit
+
