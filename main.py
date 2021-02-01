@@ -2,9 +2,9 @@ import pyttsx3
 import speech_recognition as sr
 import datetime
 from playsound import playsound
-import wikipedia
+import wikipedia, pywhatkit
 import webbrowser
-import os
+import os, PyPDF2
 import weathercom
 import json
 import smtplib
@@ -16,6 +16,8 @@ from GoogleNews import *
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
+rate = engine.getProperty('rate')
+engine.setProperty('rate', 180)
 
 def speak(audio):
     engine.say(audio)
@@ -38,7 +40,7 @@ def takeCommand():
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("what should i do sir?")
+        print("Command Me?")
         r.pause_threshold = 1
         audio = r.listen(source)
 
@@ -49,7 +51,7 @@ def takeCommand():
 
     except Exception as e:
 
-        speak("i didn't get you, sir")
+        print("Please repeat..")
         return "None"
     return query
 
@@ -67,7 +69,7 @@ def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('your email', 'email password')
+    server.login('your email', 'email pass')
     server.sendmail('your email', to, content)
     server.close()
 
@@ -99,15 +101,22 @@ def alarm():
         if (alarmH == datetime.datetime.now().hour and
                 alarmM == datetime.datetime.now().minute):
             speak("sir,the time is up. i think you have to wake up")
-            playsound('(put directory):/alarm.mp3')
-            playsound('(put directory):/alarm.mp3')
+            playsound('C:/Users/Rameez/PycharmProjects/alarm.mp3')
+            playsound('C:/Users/Rameez/PycharmProjects/alarm.mp3')
             break
 
 def scrnshot():
-    ns = 'give a directory where you want to store screenshots'
+    ns = 'C:\\Users\\Rameez\\PycharmProjects\\fridays scrnshot.png'
     img = pyi.screenshot()
     img.save(ns)
     speak('taken screenshot,sir')
+
+def utube():
+    speak('name it sir')
+    K = takeCommand()
+    song = K.replace('play', '')
+    speak('ok sir, kindly wait')
+    pywhatkit.playonyt(song)
 
 if __name__ == "__main__":
     wishMe()
@@ -135,6 +144,7 @@ if __name__ == "__main__":
             webbrowser.get(chrome).open(hx)
 
         elif 'open github' in query:
+            speak('time for repositories. right sir')
             wx = "github.com"
             chrome = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
             webbrowser.get(chrome).open(wx)
@@ -151,12 +161,24 @@ if __name__ == "__main__":
         elif 'news' in query:
             News()
 
-        elif 'music' in query:
-            music = 'directory of your music folder'
+        elif 'song' in query:
+            music = 'C:\\songs'
             songs = os.listdir(music)
             b = rd.choice(songs)
             print(songs)
             os.startfile(os.path.join(music, b))
+
+        if 'story' in query:
+            rate = engine.getProperty('rate')
+            engine.setProperty('rate', 120)
+            book = open('C:\\Users\\Rameez\\PycharmProjects\\treasure island.pdf', 'rb')
+            pdfReader = PyPDF2.PdfFileReader(book)
+            pages = pdfReader.numPages
+
+            for num in range(1, pages):
+                page = pdfReader.getPage(num)
+                text = page.extractText()
+                speak(text)
 
         elif 'joke' in query:
             c = (pyjokes.get_joke())
@@ -173,11 +195,14 @@ if __name__ == "__main__":
             App = 'C:/Program Files/Microsoft Office/Office15/POWERPNT.EXE'
             os.startfile(App)
 
-        elif ' send email ' in query:
+        if 'music' in query:
+            utube()
+
+        elif 'email' in query:
             try:
                 speak("What should I say?")
                 content = takeCommand()
-                to = 'email of the person you want to send message'
+                to = 'email to'
                 sendEmail(to, content)
                 speak("sir. The email has been sent!")
             except Exception as e:
@@ -187,4 +212,3 @@ if __name__ == "__main__":
         if 'thank you' in query:
             speak('pleasure serving you sir!')
             exit('system shutdown')
-
