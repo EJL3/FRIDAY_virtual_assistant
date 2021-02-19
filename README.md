@@ -5,7 +5,7 @@ Friday is a Ai assistant who takes command with your voice. As a matter of fact 
 # Requirements
 'pip install -r requirements' 
 
-And finally you need to download your desired alarm ringtone from net and name it alarm.(dont forget to convert it into 'mp3' if it is not)
+Finally you need to download your desired alarm ringtone(dont forget to convert it into 'mp3' if it is not) and also add a story pdf.
 
 # Facts
 you can change the voice of the assistant by changing [0] to [1], here:- engine.setProperty('voice', voices[0].id),
