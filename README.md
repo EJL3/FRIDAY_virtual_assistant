@@ -1,5 +1,4 @@
 # Friday_desktop_assistant
-![F R I D A Y](https://user-images.githubusercontent.com/73348960/108621702-a84f3880-744d-11eb-86ee-dfda6fd2cadc.jpg)
 ![Ai-startups-tech-Peter-Rejceck-shutterstock-1290615073-1068x601-1](https://user-images.githubusercontent.com/73348960/108621865-bb163d00-744e-11eb-81dc-05b63bcf7d5d.jpg)
 
 Friday is a Ai assistant who takes command with your voice. As a matter of fact i have created this Pgm for the marvel iron-man fans, it does many command features which is controlled by your voice(cool huh?).for the most crazy part you can control your pc with your voice and make your personal desktop assistant do the job. it is not the best compared to alexa,cortana etc. but it is your self made assistant so be proud. 
