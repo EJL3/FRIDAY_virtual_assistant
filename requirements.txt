@@ -25,3 +25,5 @@ PyPDF2
 pywhatkit
 
 psutil
+
+urllib3

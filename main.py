@@ -13,6 +13,9 @@ import pyjokes
 import random as rd
 import pyautogui as pyi
 from GoogleNews import *
+import urllib3
+from urllib.request import urlretrieve
+import subprocess
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -128,7 +131,28 @@ def utube():
     song = K.replace('play', '')
     speak('ok sir, kindly wait')
     pywhatkit.playonyt(song)
-
+      
+def wallpaper():
+   folder = 'YOUR DIRECTORY'
+    for the_file in os.listdir(folder):
+        file_path = os.path.join(folder, the_file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print(e)
+    api_key = 'YOUR UNSPLASH API KEY' # Which can be found here https://unsplash.com/developers
+    url = 'https://api.unsplash.com/photos/random?client_id=' + api_key  # pic from unspalsh.com
+    http = urllib3.PoolManager()
+    f = http.request('GET', url)
+    json_string = f.read()
+    f.close()
+    parsed_json = json.loads(json_string)
+    photo = parsed_json['urls']['full']
+    urlretrieve(photo, "YOUR DIRECTORY/a")
+    subprocess.call(["killall Dock"], shell=True)
+    speak('wallpaper changed successfully sir')
+  
 if __name__ == "__main__":
     wishMe()
     while True:
@@ -284,6 +308,9 @@ if __name__ == "__main__":
                 speak("you won the match")
             elif pmove == "pencil" and cmove == "rock":
                 speak("i won the match")
+                  
+        if 'wallpaper' in query:
+            wallpaper()
 
         if 'thank you' in query:
             speak('pleasure serving you sir!')
