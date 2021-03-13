@@ -15,4 +15,4 @@ you can change the voice of the assistant by changing [1] to [0], here:- engine.
 you can send email to different people by just saying there name, ALERT:- i have not included the code for this, however, you can do this by yourself by adding dictionary (take it as a challenge).
 in future i will add more features to it. :-]
 please keep in mind that for sending email you have to turn on less secure app access in gmail settings.
-If any ideas or errors feel free to post it in the issues. 
+If any ideas or errors feel free to post it in the issues. Inorder to call and send sms u need to have a account in twilio app.
