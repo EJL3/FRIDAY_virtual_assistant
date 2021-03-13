@@ -1,4 +1,4 @@
-   #PROTOTYPE AI ASSISTANT
+                                        #PROTOTYPE AI ASSISTANT
 import pyttsx3
 import speech_recognition as sr
 import datetime, psutil
@@ -11,6 +11,7 @@ import json
 import smtplib
 import pyjokes
 import random as rd
+from twilio.rest import Client
 import pyautogui as pyi
 from GoogleNews import *
 
@@ -35,7 +36,7 @@ def wishMe():
     else:
         speak("Good Evening!")
 
-    speak("hello sir, friday here. how can I help you")
+    speak("hello sir, Friday here. how can I help you")
 
 def takeCommand():
 
@@ -54,6 +55,7 @@ def takeCommand():
 
         print("Please repeat..")
         return "None"
+    query = query.lower()
     return query
 
 def News():
@@ -70,8 +72,8 @@ def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login(your email, email pass)
-    server.sendmail(your email, to, content)
+    server.login('your email', 'pass')
+    server.sendmail('your email', to, content)
     server.close()
 
 def weather():
@@ -94,7 +96,7 @@ def alarm():
     alarmH = int(input("Hour:-"))
     speak('which minute')
     alarmM = int(input("Minute:-"))
-    speak('A m or pm')
+    speak('A m. or pm')
     amPm = str(input(" am or pm:-"))
     print("Alarm Time:", alarmH, ':', alarmM, amPm)
     speak('sir, relax. i will call you in time')
@@ -105,11 +107,13 @@ def alarm():
                 alarmM == datetime.datetime.now().minute):
             speak("sir,the time is up. i think you have to wake up")
             playsound('alarm.mp3')
+            speak('sir, dont make me call your girlfriend.')
+            speak('oh!. i forgot you dont have one.')
+            speak('still you have to get up')
             playsound('alarm.mp3')
-            break
 
 def scrnshot():
-    ns = 'Fridays scrnshot.png'
+    ns = 'Friday scrnshot.png'
     img = pyi.screenshot()
     img.save(ns)
     speak('taken screenshot,sir')
@@ -117,9 +121,8 @@ def scrnshot():
 def cpu():
     usage = str(psutil.cpu_percent())
     speak("CPU is at"+usage+'percent')
-
     battery = psutil.sensors_battery()
-    speak('battery percentage, is at')
+    speak('battery percentage is at')
     speak(battery.percent)
 
 def utube():
@@ -129,11 +132,10 @@ def utube():
     speak('ok sir, kindly wait')
     pywhatkit.playonyt(song)
 
-if __name__ == "__main__":
+def TaskExecution():
     wishMe()
     while True:
-
-        query = takeCommand().lower()
+        query = takeCommand()
 
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
@@ -144,7 +146,7 @@ if __name__ == "__main__":
             speak(results)
 
         elif 'open youtube' in query:
-            vx = "https://youtube.com"
+            vx = "youtube.com"
             chrome = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
             webbrowser.get(chrome).open(vx)
 
@@ -186,9 +188,45 @@ if __name__ == "__main__":
             print(songs)
             os.startfile(os.path.join(music, b))
 
+        if 'call' in query:
+            speak('arranging a call')
+            account_sid = 'twilio acct'
+            auth_token = 'twilio auth'
+            client = Client(account_sid, auth_token)
+
+            message = client.calls \
+                .create(
+                twiml='<Response><Say>This call is made by jarvis. as per instructed by Rizwan AR </Say></Response>',
+                from_='twilio number',
+                to='verified number'
+                )
+            print('successful:', message.sid)
+
+        if 'message' in query:
+            speak('what should i text')
+            bv = takeCommand()
+            account_sid = 'twilio acct_sid'
+            auth_token = 'twilio auth_tok'
+            client = Client(account_sid, auth_token)
+
+            message = client.messages \
+            .create(
+                body=bv,
+                from_='twilio number',
+                to='verified number'
+                )
+            print('successful:', message.sid)
+
+
+        if 'siri' in query:
+            speak('why would u need a bitch to assist u sir. when i am here around')
+
         if 'story' in query:
+            speak('sir, honestly i am bored to read story. but do not fear, i will arrange jarvis to read it for you')
+            engine.setProperty('voice', voices[0].id)
+            speak('hello sir, jarvis here. i will read the story for you')
             rate = engine.getProperty('rate')
-            engine.setProperty('rate', 120)
+            engine.setProperty('rate', 150)
             book = open('treasure island.pdf', 'rb')
             pdfReader = PyPDF2.PdfFileReader(book)
             pages = pdfReader.numPages
@@ -202,7 +240,7 @@ if __name__ == "__main__":
             c = (pyjokes.get_joke())
             print(c)
             speak(c)
-            speak('sorry,sir. i am terrible at joking')
+            speak('it was a terrible algo joke. sorry sir, i am trying to learn sarcasm')
 
         if 'search' in query:
             speak('what do you want to search')
@@ -219,7 +257,7 @@ if __name__ == "__main__":
         if 'coin' in query:
             moves = ["heads", "tails"]
             cmove = rd.choice(moves)
-            speak("sir. the probability i got is " + cmove)
+            speak("sir. its a" + cmove)
             print(cmove)
 
         elif 'open powerpoint' in query:
@@ -231,11 +269,26 @@ if __name__ == "__main__":
             webbrowser.get().open(url)
             speak("You must be somewhere near here, as per Google maps")
 
-        elif 'still' in query:
+        elif 'there' in query:
             speak('yes sir, at your service')
 
         if 'video' in query:
             utube()
+
+        if 'volume up' in query:
+            pyi.press('volumeup')
+            pyi.press('volumeup')
+            pyi.press('volumeup')
+            pyi.press('volumeup')
+            pyi.press('volumeup')
+        if 'volume down' in query:
+            pyi.press('volumedown')
+            pyi.press('volumedown')
+            pyi.press('volumedown')
+            pyi.press('volumedown')
+            pyi.press('volumedown')
+        if 'mute' in query or 'unmute' in query:
+            pyi.press('volumemute')
 
         elif 'note' in query:
             speak("sir, kindly feed me what i should remember")
@@ -251,9 +304,9 @@ if __name__ == "__main__":
 
         elif 'email' in query:
             try:
-                speak("What should I say?")
+                speak("What should I sent?")
                 content = takeCommand()
-                to = reciever email
+                to = 'reciever email'
                 sendEmail(to, content)
                 speak("sir. The email has been sent!")
             except Exception as e:
@@ -285,6 +338,24 @@ if __name__ == "__main__":
             elif pmove == "pencil" and cmove == "rock":
                 speak("i won the match")
 
-        if 'thank you' in query:
+        if 'sleep' in query:
+            speak('ok sir, going hibernation. dont hesitate to call me anytime sir ')
+            break
+
+        if 'thank you' in query or 'close' in query:
             speak('pleasure serving you sir!')
+            exit('system shutdown')
+
+        elif 'shut' in query or 'leave' in query:
+            speak('it seems your disturbed sir. well,i will leave just for now')
+            exit('system shutdown')
+
+if __name__ == '__main__':
+    while True:
+        permission = takeCommand()
+        if 'wake up' in permission or 'friday' in permission:
+            speak('all systems up and running')
+            TaskExecution()
+        elif 'rest' in permission or 'quit' in permission:
+            speak('ok sir, if thats your wish')
             exit('system shutdown')
