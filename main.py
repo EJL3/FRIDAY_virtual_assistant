@@ -275,7 +275,7 @@ def TaskExecution():
 
         if 'whatsapp' in query:
             speak('which number')
-            numb = int(input('Phn No:'))
+            numb = input('Phn No:')
             speak('sir, what should i text')
             mesg = takeCommand()
             #to send in pm use railway time else use normal timing.
