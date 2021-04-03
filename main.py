@@ -191,14 +191,13 @@ def TaskExecution():
         if 'call' in query:
             speak('arranging call')
             speak('what should i say')
-            vb = takeCommand()
             account_sid = ''
             auth_token = ''
             client = Client(account_sid, auth_token)
 
             message = client.calls \
                 .create(
-                twiml='<Response><Say>' vb '</Say></Response>',
+                twiml='<Response><Say> hello this message is directed by friday, as per the instruction of rizwan A R </Say></Response>',
                 from_='your twilio number',
                 to='any verified number'
                 )
