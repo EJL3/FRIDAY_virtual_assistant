@@ -1,4 +1,4 @@
-                                        #PROTOTYPE AI ASSISTANT
+                                       #PROTOTYPE AI ASSISTANT
 import pyttsx3
 import speech_recognition as sr
 import datetime, psutil
@@ -189,31 +189,33 @@ def TaskExecution():
             os.startfile(os.path.join(music, b))
 
         if 'call' in query:
-            speak('arranging a call')
-            account_sid = 'twilio acct'
-            auth_token = 'twilio auth'
+            speak('arranging call')
+            speak('what should i say')
+            vb = takeCommand()
+            account_sid = ''
+            auth_token = ''
             client = Client(account_sid, auth_token)
 
             message = client.calls \
                 .create(
-                twiml='<Response><Say>This call is made by jarvis. as per instructed by Rizwan AR </Say></Response>',
-                from_='twilio number',
-                to='verified number'
+                twiml='<Response><Say>' vb '</Say></Response>',
+                from_='your twilio number',
+                to='any verified number'
                 )
             print('successful:', message.sid)
 
-        if 'message' in query:
+        if 'sms' in query:
             speak('what should i text')
             bv = takeCommand()
-            account_sid = 'twilio acct_sid'
-            auth_token = 'twilio auth_tok'
+            account_sid = ''
+            auth_token = ''
             client = Client(account_sid, auth_token)
 
             message = client.messages \
             .create(
                 body=bv,
-                from_='twilio number',
-                to='verified number'
+                from_='your number',
+                to='any verified number'
                 )
             print('successful:', message.sid)
 
@@ -272,21 +274,27 @@ def TaskExecution():
         elif 'there' in query:
             speak('yes sir, at your service')
 
+        if 'whatsapp' in query:
+            speak('which number')
+            numb = int(input('Phn No:'))
+            speak('sir, what should i text')
+            mesg = takeCommand()
+            #to send in pm use railway time else use normal timing.
+            hour = int(input('Enter hour to be send'))
+            min = int(input('Enter min to be send'))
+            pywhatkit.sendwhatmsg(numb, mesg, hour, min)
+
         if 'video' in query:
             utube()
 
         if 'volume up' in query:
-            pyi.press('volumeup')
-            pyi.press('volumeup')
-            pyi.press('volumeup')
-            pyi.press('volumeup')
-            pyi.press('volumeup')
+            for i in range(1, 10):
+                pyi.press('volumeup')
+
         if 'volume down' in query:
-            pyi.press('volumedown')
-            pyi.press('volumedown')
-            pyi.press('volumedown')
-            pyi.press('volumedown')
-            pyi.press('volumedown')
+            for i in range(1, 10):
+                pyi.press('volumedown')
+
         if 'mute' in query or 'unmute' in query:
             pyi.press('volumemute')
 
@@ -306,7 +314,7 @@ def TaskExecution():
             try:
                 speak("What should I sent?")
                 content = takeCommand()
-                to = 'reciever email'
+                to = 'recievers email'
                 sendEmail(to, content)
                 speak("sir. The email has been sent!")
             except Exception as e:
