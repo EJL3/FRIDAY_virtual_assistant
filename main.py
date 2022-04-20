@@ -221,6 +221,9 @@ def TaskExecution():
 
         if 'siri' in query:
             speak('why would u need a bitch to assist u sir. when i am here around')
+            
+        if 'alexa' in query:
+            speak('seriously?. what was the purpose of making me')
 
         if 'story' in query:
             speak('sir, honestly i am bored to read story. but do not fear, i will arrange jarvis to read it for you')
@@ -363,6 +366,6 @@ if __name__ == '__main__':
         if 'wake up' in permission or 'friday' in permission:
             speak('all systems up and running')
             TaskExecution()
-        elif 'rest' in permission or 'quit' in permission:
+        elif 'leave' in permission or 'quit' in permission:
             speak('ok sir, if thats your wish')
             exit('system shutdown')
